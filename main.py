@@ -8,9 +8,9 @@ OutCred = int(0)
 Balance = int(0)
 SpinCount = int(0)
 
-ReelA = [1,2,3]
-ReelB = [1,2,3]
-ReelC = [1,2,3]
+ReelA = [0,1,2,3]
+ReelB = [0,1,2,3]
+ReelC = [0,1,2,3]
 
 def InputLoop(x):
     if x == "":
@@ -61,9 +61,9 @@ def Spin():
 
     if ReelA[HitA] == ReelB[HitB]:
         if ReelA[HitA] == ReelC[HitC]:
-            Balance += 5
+            Balance += 5 * ReelA[HitA]
         else:
-            Balance += 1
+            Balance += 1 * ReelA[HitA]
 ################# Application Starts Here #################
 
 os.system('cls' if os.name == 'nt' else 'clear')
