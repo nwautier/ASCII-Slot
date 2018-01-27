@@ -1,14 +1,20 @@
 from decimal import *
 import os
+import random
 
 Hopper = int(500)
 InCred = int(0)
 OutCred = int(0)
 Balance = int(0)
+SpinCount = int(0)
+
+ReelA = [1,2,3]
+ReelB = [1,2,3]
+ReelC = [1,2,3]
 
 def InputLoop(x):
     if x == "":
-        if Balance > 1:
+        if Balance > 0:
             Spin()
         else:
             print("You need to put some credits in before you can spin...  See Your Host!")
@@ -23,27 +29,49 @@ def InputLoop(x):
 
 def CredIn(x):
     global InCred, Hopper, Balance
-    InCred = InCred + int(x)
-    Hopper = Hopper + int(x)
-    Balance = Balance + int(x)
+    InCred += int(x)
+    Hopper += int(x)
+    Balance += int(x)
 
 def CredOut():
     x=0
     global Hopper, Balance, OutCred
-    Hopper =  Hopper -  Balance
-    OutCred = OutCred + Balance
-    Balance = 0
+    Hopper -= Balance
+    OutCred += Balance
     os.system('cls' if os.name == 'nt' else 'clear')
     while x != "159753":
         print ("You have claimed", Balance, "Credits")
-        x=input("Enter the password to confirm claim.")
+        print ("Enter the password to confirm claim.")
+        x=input("")
+        os.system('cls' if os.name == 'nt' else 'clear')
+    Balance = 0
 
-################# Application Starts Here #################
-
-while 1>0:
+def Spin():
+    global Balance, SpinCount
+    SpinCount += 1
+    Balance -= 1
+    HitA = random.randrange(0,len(ReelA))
+    HitB = random.randrange(0,len(ReelB))
+    HitC = random.randrange(0,len(ReelC))
     os.system('cls' if os.name == 'nt' else 'clear')
 
+    # print(ReelA[HitA-1],ReelB[HitB-1],ReelC[HitC-1]) #
+    print(ReelA[HitA],ReelB[HitB],ReelC[HitC])
+    # print(ReelA[HitA+1],ReelB[HitB+1],ReelC[HitC+1]) #
+
+    if ReelA[HitA] == ReelB[HitB]:
+        if ReelA[HitA] == ReelC[HitC]:
+            Balance += 5
+        else:
+            Balance += 1
+################# Application Starts Here #################
+
+os.system('cls' if os.name == 'nt' else 'clear')
+print("")
+while 1>0:
+
     ##### DEBUG LINES #####
+    print("SpinCount", SpinCount)
     print("Hopper:", Hopper)
     print("InCred:", InCred)
     print("OutCred:", OutCred)
@@ -53,4 +81,5 @@ while 1>0:
     print("Press Enter to Spin")
     print("Type DONE to End Your Session")
     x = input()
+    os.system('cls' if os.name == 'nt' else 'clear')
     InputLoop(x)
