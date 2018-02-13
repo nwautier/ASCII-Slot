@@ -24,6 +24,8 @@ def InputLoop(x):
         print("How many credits would you like to put in?")
         x=int(input())
         CredIn(x)
+    elif x == "ShutDown":
+        exit()
     else:
         print("That feature is not yet supported!")
 
