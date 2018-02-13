@@ -26,6 +26,7 @@ def InputLoop(x):
         x=int(input())
         CredIn(x)
     elif x == "ShutDown":
+        Log("System ShutDown Requested")
         exit()
     else:
         print("That feature is not yet supported!")
