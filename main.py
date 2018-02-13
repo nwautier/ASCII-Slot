@@ -1,6 +1,7 @@
 from decimal import *
 import os
 import random
+import datetime
 
 Hopper = int(500)
 InCred = int(0)
@@ -66,8 +67,12 @@ def Spin():
             Balance += 5 * ReelA[HitA]
         else:
             Balance += 1 * ReelA[HitA]
+def Log(x):
+    f = open("log.txt", "a")
+    f.write(str(datetime.datetime.now()) + " " + x + "\n")
+    f.close
 ################# Application Starts Here #################
-
+Log("Program Launch")
 os.system('cls' if os.name == 'nt' else 'clear')
 print("")
 while 1>0:
