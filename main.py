@@ -32,10 +32,12 @@ def InputLoop(x):
         print("That feature is not yet supported!")
 
 def CredIn(x):
-    global InCred, Hopper, Balance
+    global InCred, Hopper, Balance, SpinCount
+    Log("A" + str(x) + "S" + str(SpinCount) + "H" + str(Hopper))
     InCred += int(x)
     Hopper += int(x)
     Balance += int(x)
+    Log("A" + str(Hopper))
 
 def CredOut():
     x=0
