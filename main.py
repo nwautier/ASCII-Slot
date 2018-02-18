@@ -88,15 +88,15 @@ def Spin():
         if ReelA[HitA] == ReelC[HitC]:
             ToPay = 5 * ReelA[HitA]
         else:
-            Balance += 1 * ReelA[HitA]
-def Log(x):
-    f = open("log.txt", "a")
-    f.write(str(datetime.datetime.now()) + " " + x + "\n")
-    f.close
             ToPay = 1 * ReelA[HitA]
         if ToPay > 0:
             InfoStrip = ("You Won " + str(ToPay) + " Credits")
     Balance += ToPay
+
+def Log(x):
+    f = open("log.txt", "a")
+    f.write(str(datetime.datetime.now()) + " " + x + "\n")
+    f.close
 
 def ScreenPrint():
     # Prints every time main loop is waiting for input.
