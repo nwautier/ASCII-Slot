@@ -91,7 +91,7 @@ def Spin():
             ToPay = 1 * ReelA[HitA]
         if ToPay > 0:
             InfoStrip = ("You Won " + str(ToPay) + " Credits")
-    Balance += ToPay
+            Balance += ToPay
 
 def Log(x):
     f = open("log.txt", "a")
@@ -136,7 +136,7 @@ def ServiceMenu():
         elif x== "ADJUST":
             print("Balance:", Balance, "How many to add?")
             x=input("")
-            Balance += int()
+            Balance += int(x)
 
 ################# Application Starts Here #################
 Log("Program Launch")
