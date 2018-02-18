@@ -91,6 +91,7 @@ def Spin():
         if ReelA[HitA] == ReelC[HitC]:
             if ReelA[HitA] == "J":
                 ToPay=250
+                Log("Jackpot 250 Hit!")
             else:
                 ToPay = 5 * ReelA[HitA]
         else:
