@@ -14,10 +14,9 @@ ReelDisplay = str("0 0 0")
 InfoStrip = "See your host to begin!"
 
 # Set Reels (This does determine odds and payouts, so be smart!)
-ReelA = [0,1,2,3]
-ReelB = [0,1,2,3]
-ReelC = [0,1,2,3]
-
+ReelA = ["J",0,1,2,3,4,5,6,7,8,9]
+ReelB = ["J",0,1,2,3,4,5,6,7,8,9]
+ReelC = ["J",0,1,2,3,4,5,6,7,8,9]
 
 def InputLoop(x):
     # This is the main loop that the program runs on.  Unless in the Service Menu, all keypresses are sent here for processing
@@ -90,9 +89,15 @@ def Spin():
     ToPay = 0 # Local Variable
     if ReelA[HitA] == ReelB[HitB]:
         if ReelA[HitA] == ReelC[HitC]:
-            ToPay = 5 * ReelA[HitA]
+            if ReelA[HitA] == "J":
+                ToPay=250
+            else:
+                ToPay = 5 * ReelA[HitA]
         else:
-            ToPay = 1 * ReelA[HitA]
+            if ReelA[HitA] == "J":
+                ToPay=0
+            else:
+                ToPay = 1 * ReelA[HitA]
         if ToPay > 0:
             InfoStrip = ("You Won " + str(ToPay) + " Credits")
             Balance += ToPay
