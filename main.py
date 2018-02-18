@@ -33,15 +33,16 @@ def InputLoop(x):
 
 def CredIn(x):
     global InCred, Hopper, Balance, SpinCount
-    Log("A" + str(x) + "S" + str(SpinCount) + "H" + str(Hopper))
+    Log(" I " + str(x) + " S " + str(SpinCount) + " H " + str(Hopper))
     InCred += int(x)
     Hopper += int(x)
     Balance += int(x)
-    Log("A" + str(Hopper))
+    Log(" H " + str(Hopper))
 
 def CredOut():
     x=0
     global Hopper, Balance, OutCred
+    Log(" O " + str(Balance) + " S " + str(SpinCount) + " H " + str(Hopper))
     Hopper -= Balance
     OutCred += Balance
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -51,6 +52,7 @@ def CredOut():
         x=input("")
         os.system('cls' if os.name == 'nt' else 'clear')
     Balance = 0
+    Log( " H " + str(Hopper))
 
 def Spin():
     global Balance, SpinCount
