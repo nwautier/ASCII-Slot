@@ -1,6 +1,7 @@
 from decimal import *
 import os
 import random
+import datetime
 
 # Define Global Variables
 Hopper = int(500)
@@ -39,6 +40,7 @@ def InputLoop(x):
         ServiceMenu()
     elif x == "ShutDown":
         # Terminates the program imediately regardless of state.  Perhaps throw errors to pay-out or log current values first?
+        Log("System ShutDown Requested")
         exit()
     else:
         # Catch-All term for any other input than those listed above.  Could be lost in future updates
@@ -46,15 +48,18 @@ def InputLoop(x):
 
 def CredIn(x):
     # Assumes that permission is granted and passed value can be cast to INT.
-    global InCred, Hopper, Balance
+    global InCred, Hopper, Balance, SpinCount
+    Log(" I " + str(x) + " S " + str(SpinCount) + " H " + str(Hopper))
     InCred += int(x)
     Hopper += int(x)
     Balance += int(x)
+    Log(" H " + str(Hopper))
 
 def CredOut():
     # Launches an Admin Access area to confirm hand pay
     x=0
     global Hopper, Balance, OutCred
+    Log(" O " + str(Balance) + " S " + str(SpinCount) + " H " + str(Hopper))
     os.system('cls' if os.name == 'nt' else 'clear')
     while x != "159753":
         # User is stuck in the loop until Admin Password is entered.
@@ -65,6 +70,7 @@ def CredOut():
     Hopper -= Balance
     OutCred += Balance
     Balance = 0
+    Log( " H " + str(Hopper))
 
 def Spin():
     # Randomness and Payout is calculated here.  Simple System relies on Global Arrays to determine payout odds and odds of winning.
@@ -82,6 +88,11 @@ def Spin():
         if ReelA[HitA] == ReelC[HitC]:
             ToPay = 5 * ReelA[HitA]
         else:
+            Balance += 1 * ReelA[HitA]
+def Log(x):
+    f = open("log.txt", "a")
+    f.write(str(datetime.datetime.now()) + " " + x + "\n")
+    f.close
             ToPay = 1 * ReelA[HitA]
         if ToPay > 0:
             InfoStrip = ("You Won " + str(ToPay) + " Credits")
@@ -128,7 +139,7 @@ def ServiceMenu():
             Balance += int()
 
 ################# Application Starts Here #################
-
+Log("Program Launch")
 os.system('cls' if os.name == 'nt' else 'clear')
 print("")
 while 1>0:
