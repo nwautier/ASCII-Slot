@@ -21,7 +21,7 @@ ReelC = ["J",0,1,2,3,4,5,6,7,8,9]
 
 def InputLoop(x):
     # This is the main loop that the program runs on.  Unless in the Service Menu, all keypresses are sent here for processing
-    global InfoStrip
+    global InfoStrip, UseConfig
     if x == "":
         if Balance > 0:
             Spin()
@@ -41,6 +41,8 @@ def InputLoop(x):
     elif x == "ShutDown":
         # Terminates the program imediately regardless of state.  Perhaps throw errors to pay-out or log current values first?
         Log("System ShutDown Requested")
+        if UseConfig == "Y":
+            WriteConfig()
         exit()
     else:
         # Catch-All term for any other input than those listed above.  Could be lost in future updates
@@ -112,13 +114,12 @@ def LoadConfig():
     OutCred=int(f.readline())
     Balance=int(f.readline())
     SpinCount=int(f.readline())
-
     f.close
 
 def WriteConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
     f = open("config.txt", "w")
-    # Make writes here
+    f.writelines( str(Hopper), str(InCred), str(OutCred), str(Balance), str(SpinCount), str(ReelA), str(ReelB), str(ReelC))
     f.close
 
 def Log(x):
@@ -183,7 +184,7 @@ if UseConfig == "Y":
     print(Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC)
     Log("Config Loaded")
 else:
-    log("Demo Data Loaded")
+    Log("Demo Data Loaded")
     print("Demo Data Loaded")
 print("Press any key to continue")
 y=input()
@@ -192,4 +193,4 @@ while 1>0:
     # DUH...  FOREVER!
     ScreenPrint()
     x = input()
-    InputLoop(x,) #" - S", SpinCount, "H", Hopper, "I", InCred, "O", OutCred, "B", Balance
+    InputLoop(x) #" - S", SpinCount, "H", Hopper, "I", InCred, "O", OutCred, "B", Balance
