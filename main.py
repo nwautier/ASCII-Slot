@@ -12,6 +12,7 @@ SpinCount = int(0)
 ToPay = int(0)
 ReelDisplay = str("0 0 0")
 InfoStrip = "See your host to begin!"
+UseConfig = "N"
 
 # Set Reels (This does determine odds and payouts, so be smart!)
 ReelA = ["J",0,1,2,3,4,5,6,7,8,9]
@@ -103,9 +104,26 @@ def Spin():
             InfoStrip = ("You Won " + str(ToPay) + " Credits")
             Balance += ToPay
 
+def LoadConfig():
+    global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
+    f = open("config.txt", "r")
+    Hopper=int(f.readline())
+    InCred=int(f.readline())
+    OutCred=int(f.readline())
+    Balance=int(f.readline())
+    SpinCount=int(f.readline())
+
+    f.close
+
+def WriteConfig():
+    global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
+    f = open("config.txt", "w")
+    # Make writes here
+    f.close
+
 def Log(x):
     f = open("log.txt", "a")
-    f.write(str(datetime.datetime.now()) + " " + x + "\n")
+    f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n")
     f.close
 
 def ScreenPrint():
@@ -158,9 +176,20 @@ def ServiceMenu():
 ################# Application Starts Here #################
 Log("Program Launch")
 os.system('cls' if os.name == 'nt' else 'clear')
+print("Load from config file?  N for Demo Mode")
+UseConfig=input()
+if UseConfig == "Y":
+    LoadConfig()
+    print(Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC)
+    Log("Config Loaded")
+else:
+    log("Demo Data Loaded")
+    print("Demo Data Loaded")
+print("Press any key to continue")
+y=input()
 print("")
 while 1>0:
     # DUH...  FOREVER!
     ScreenPrint()
     x = input()
-    InputLoop(x, " - S", SpinCount, "H", Hopper, "I", InCred, "O", OutCred, "B", Balance)
+    InputLoop(x,) #" - S", SpinCount, "H", Hopper, "I", InCred, "O", OutCred, "B", Balance
