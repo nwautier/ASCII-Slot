@@ -117,7 +117,7 @@ def LoadConfig():
 def WriteConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
     f = open("config.txt", "w")
-    f.writelines( str(Hopper) + str(InCred) + str(OutCred) + str(Balance) + str(SpinCount) + str(ReelA) + str(ReelB) + str(ReelC))
+    f.write( str(Hopper) + "\n"+ str(InCred) + "\n" + str(OutCred) + "\n" + str(Balance) + "\n" + str(SpinCount) + "\n" + str(ReelA) + "\n" + str(ReelB) + "\n" + str(ReelC))
     f.close
 
 def Log(x):
