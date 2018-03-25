@@ -163,4 +163,4 @@ while 1>0:
     # DUH...  FOREVER!
     ScreenPrint()
     x = input()
-    InputLoop(x, " - S", SpinCount, "H", Hopper, "I", InCred, "O", OutCred, "B", Balance)
+    InputLoop(x)
