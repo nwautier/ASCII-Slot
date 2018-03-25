@@ -51,17 +51,16 @@ def InputLoop(x):
 def CredIn(x):
     # Assumes that permission is granted and passed value can be cast to INT.
     global InCred, Hopper, Balance, SpinCount
-    Log(" I " + str(x) + " S " + str(SpinCount) + " H " + str(Hopper))
+    Log(" Incred ")
     InCred += int(x)
     Hopper += int(x)
     Balance += int(x)
-    Log(" H " + str(Hopper))
 
 def CredOut():
     # Launches an Admin Access area to confirm hand pay
     x=0
     global Hopper, Balance, OutCred
-    Log(" O " + str(Balance) + " S " + str(SpinCount) + " H " + str(Hopper))
+    Log(" Outcred " )
     os.system('cls' if os.name == 'nt' else 'clear')
     while x != "159753":
         # User is stuck in the loop until Admin Password is entered.
@@ -76,7 +75,6 @@ def CredOut():
     Hopper -= Balance
     OutCred += Balance
     Balance = 0
-    Log( " H " + str(Hopper))
 
 def Spin():
     # Randomness and Payout is calculated here.  Simple System relies on Global Arrays to determine payout odds and odds of winning.
@@ -166,12 +164,12 @@ def ServiceMenu():
             if x == "YES":
                 print ("How many credits are in the hopper?")
                 x=input()
-                Log("AA H " + str(Hopper) + " -> " + str(x))
+                Log("Admin Adjust Hopper " + str(Hopper) + " -> " + str(x) + " ")
                 Hopper = int(x)
         elif x== "ADJUST":
             print("Balance:", Balance, "How many to add?")
             x=input("")
-            Log("AA-B " + str(Balance) + " -> " + str(x))
+            Log("Admin Adjust Balance " + str(Balance) + " -> " + str(x) + " ")
             Balance += int(x)
 
 ################# Application Starts Here #################
