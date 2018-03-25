@@ -51,7 +51,7 @@ def InputLoop(x):
 def CredIn(x):
     # Assumes that permission is granted and passed value can be cast to INT.
     global InCred, Hopper, Balance, SpinCount
-    Log(" Incred ")
+    Log("Incred ")
     InCred += int(x)
     Hopper += int(x)
     Balance += int(x)
@@ -60,7 +60,7 @@ def CredOut():
     # Launches an Admin Access area to confirm hand pay
     x=0
     global Hopper, Balance, OutCred
-    Log(" Outcred " )
+    Log("Outcred " )
     os.system('cls' if os.name == 'nt' else 'clear')
     while x != "159753":
         # User is stuck in the loop until Admin Password is entered.
