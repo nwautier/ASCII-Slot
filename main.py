@@ -2,6 +2,7 @@ from decimal import *
 import os
 import random
 import datetime
+import ast
 
 # Define Global Variables
 Hopper = int(500)
@@ -112,6 +113,9 @@ def LoadConfig():
     OutCred=int(f.readline())
     Balance=int(f.readline())
     SpinCount=int(f.readline())
+    ReelA=ast.literal_eval(f.readline())
+    ReelB=ast.literal_eval(f.readline())
+    ReelC=ast.literal_eval(f.readline())
     f.close
 
 def WriteConfig():
