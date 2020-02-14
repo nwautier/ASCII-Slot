@@ -178,7 +178,6 @@ print("Load from config file?  N for Demo Mode")
 UseConfig=input()
 if UseConfig == "Y":
     LoadConfig()
-    print(Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC)
     Log("Config Loaded")
 else:
     Log("Demo Data Loaded")
