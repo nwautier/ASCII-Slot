@@ -1,10 +1,7 @@
 from decimal import *
-import os
-import random
-import datetime
-import ast
+import os, random, datetime, ast
 
-# Define Global Variables
+# Define Default Global Variables
 Hopper = int(500)
 InCred = int(0)
 OutCred = int(0)
@@ -14,8 +11,6 @@ ToPay = int(0)
 ReelDisplay = str("0 0 0")
 InfoStrip = "See your host to begin!"
 UseConfig = "N"
-
-# Set Reels (This does determine odds and payouts, so be smart!)
 ReelA = ["J",0,1,2,3,4,5,6,7,8,9]
 ReelB = ["J",0,1,2,3,4,5,6,7,8,9]
 ReelC = ["J",0,1,2,3,4,5,6,7,8,9]
@@ -29,7 +24,7 @@ def InputLoop(x):
         else:
             InfoStrip=("You need to put some credits in before you can spin...  See Your Host!")
     elif x == "DONE":
-        # Launches an Admin Access page so they can confirm proper hand-pay
+        # Launches an Admin Access page so they can hand-pay
         CredOut()
     elif x == "In":
         # Allows credits to be inserted to the system.  Perhaps needs security triggers?
