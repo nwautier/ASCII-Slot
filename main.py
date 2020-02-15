@@ -32,9 +32,7 @@ def InputLoop(x):
         CredOut()
     elif x == "In":
         # Allows credits to be inserted to the system.  Perhaps needs security triggers?
-        print("How many credits would you like to put in?")
-        x=int(input())
-        CredIn(x)
+        CredIn()
     elif x=="ServiceMenu":
         # Launches an Admin Access area with its own keypress capture loop
         ServiceMenu()
@@ -48,14 +46,26 @@ def InputLoop(x):
         # Catch-All term for any other input than those listed above.  Could be lost in future updates
         InfoStrip=("That feature is not yet supported!")
 
-def CredIn(x):
+def CredIn():
     # Assumes that permission is granted and passed value can be cast to INT.
     global InCred, Hopper, Balance, SpinCount
-    Log("Incred ")
-    InCred += int(x)
-    Hopper += int(x)
-    Balance += int(x)
-
+    x=0
+    os.system('cls' if os.name == 'nt' else 'clear')
+    while x != "159753":
+        # User is stuck in the loop until Admin Password is entered.
+        print ("Enter the Administrative password to enter credits.")
+        x=input("")
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if x == "159753":
+            Log("Admin Pass Success")
+            print("How many credits would you like to put in?")
+            y=int(input())
+            Log("Incred ")
+            InCred += int(y)
+            Hopper += int(y)
+            Balance += int(y)
+        else:
+            Log("Admin Pass Fail")
 def CredOut():
     # Launches an Admin Access area to confirm hand pay
     x=0
