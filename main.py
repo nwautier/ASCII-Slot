@@ -66,6 +66,7 @@ def CredIn():
             Balance += int(y)
         else:
             Log("Admin Pass Fail")
+            
 def CredOut():
     # Launches an Admin Access area to confirm hand pay
     x=0
