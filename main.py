@@ -1,7 +1,9 @@
 from decimal import *
-import os, random, datetime, ast
+import os
+import random
+import datetime
 
-# Define Default Global Variables
+# Define Global Variables
 Hopper = int(500)
 InCred = int(0)
 OutCred = int(0)
@@ -11,6 +13,8 @@ ToPay = int(0)
 ReelDisplay = str("0 0 0")
 InfoStrip = "See your host to begin!"
 UseConfig = "N"
+
+# Set Reels (This does determine odds and payouts, so be smart!)
 ReelA = ["J",0,1,2,3,4,5,6,7,8,9]
 ReelB = ["J",0,1,2,3,4,5,6,7,8,9]
 ReelC = ["J",0,1,2,3,4,5,6,7,8,9]
@@ -24,7 +28,7 @@ def InputLoop(x):
         else:
             InfoStrip=("You need to put some credits in before you can spin...  See Your Host!")
     elif x == "DONE":
-        # Launches an Admin Access page so they can hand-pay
+        # Launches an Admin Access page so they can confirm proper hand-pay
         CredOut()
     elif x == "In":
         # Allows credits to be inserted to the system.  Perhaps needs security triggers?
@@ -108,15 +112,12 @@ def LoadConfig():
     OutCred=int(f.readline())
     Balance=int(f.readline())
     SpinCount=int(f.readline())
-    ReelA=ast.literal_eval(f.readline())
-    ReelB=ast.literal_eval(f.readline())
-    ReelC=ast.literal_eval(f.readline())
     f.close
 
 def WriteConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
     f = open("config.txt", "w")
-    f.write( str(Hopper) + "\n"+ str(InCred) + "\n" + str(OutCred) + "\n" + str(Balance) + "\n" + str(SpinCount) + "\n" ast.literal_eval(ReelA) + "\n" ast.literal_eval(ReelB) + "\n" ast.literal_eval(ReelC))
+    f.write( str(Hopper) + "\n"+ str(InCred) + "\n" + str(OutCred) + "\n" + str(Balance) + "\n" + str(SpinCount))
     f.close
 
 def Log(x):
@@ -178,6 +179,7 @@ print("Load from config file?  N for Demo Mode")
 UseConfig=input()
 if UseConfig == "Y":
     LoadConfig()
+    print(Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC)
     Log("Config Loaded")
 else:
     Log("Demo Data Loaded")
