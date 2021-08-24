@@ -19,6 +19,20 @@ ReelA = ["J",0,1,2,3,4,5,6,7,8,9]
 ReelB = ["J",0,1,2,3,4,5,6,7,8,9]
 ReelC = ["J",0,1,2,3,4,5,6,7,8,9]
 
+def AdminCheck():
+    x = ""
+    while x != "159753":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        # User is stuck in the loop until Admin Password is entered.
+        print ("Enter the Administrative password to continue.")
+        x=input("")
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if x == "159753":
+            Log("Admin Pass Success")
+            return(True)
+        else:
+            print("Try Again")
+
 def InputLoop(x):
     # This is the main loop that the program runs on.  Unless in the Service Menu, all keypresses are sent here for processing
     global InfoStrip, UseConfig
@@ -49,24 +63,16 @@ def InputLoop(x):
 def CredIn():
     # Assumes that permission is granted and passed value can be cast to INT.
     global InCred, Hopper, Balance, SpinCount
-    x=0
-    os.system('cls' if os.name == 'nt' else 'clear')
-    while x != "159753":
-        # User is stuck in the loop until Admin Password is entered.
-        print ("Enter the Administrative password to enter credits.")
-        x=input("")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        if x == "159753":
-            Log("Admin Pass Success")
-            print("How many credits would you like to put in?")
-            y=int(input())
-            Log("Incred ")
-            InCred += int(y)
-            Hopper += int(y)
-            Balance += int(y)
-        else:
-            Log("Admin Pass Fail")
-            
+    if AdminCheck() == True:
+        print("How many credits would you like to put in?")
+        y=int(input())
+        Log("Incred ")
+        InCred += int(y)
+        Hopper += int(y)
+        Balance += int(y)
+    else:
+        Log("Admin Pass Fail")
+
 def CredOut():
     # Launches an Admin Access area to confirm hand pay
     x=0
