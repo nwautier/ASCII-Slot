@@ -31,6 +31,7 @@ def AdminCheck():
             Log("Admin Pass Success")
             return(True)
         else:
+            Log("Admin Pass Fail")
             print("Try Again")
 
 def InputLoop(x):
