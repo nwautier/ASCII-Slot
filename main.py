@@ -153,37 +153,30 @@ def ServiceMenu():
     Log("Service Menu Requested")
     global SpinCount, Hopper, InCred, OutCred, Balance
     x=0
-    while x != "159753":
-        print ("The Administrative password is required to continue.")
-        x=input("")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        if x == "159753":
-            Log("Admin Pass Success")
-        else:
-            Log("Admin Pass Fail")
-    while x != "":
-        # Not selecting any input, terminates Administrative mode.  A Typo brings you back to the same prompt
-        print ("Would you like to VIEW stats, SET hopper, or ADJUST balance?  Hit Return to exit.")
-        x=input("")
-        if x == "VIEW":
-            print("SpinCount", SpinCount)
-            print("Hopper:", Hopper)
-            print("InCred:", InCred)
-            print("OutCred:", OutCred)
-            print("Balance:", Balance)
-        elif x == "SET":
-            print ("WARNING!  THIS WILL ERASE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
+    if AdminCheck() == True:
+        while x != "":
+            # Not selecting any input, terminates Administrative mode.  A Typo brings you back to the same prompt
+            print ("Would you like to VIEW stats, SET hopper, or ADJUST balance?  Hit Return to exit.")
             x=input("")
-            if x == "YES":
-                print ("How many credits are in the hopper?")
-                x=input()
-                Log("Admin Adjust Hopper " + str(Hopper) + " -> " + str(x) + " ")
-                Hopper = int(x)
-        elif x== "ADJUST":
-            print("Balance:", Balance, "How many to add?")
-            x=input("")
-            Log("Admin Adjust Balance " + str(Balance) + " -> " + str(x) + " ")
-            Balance += int(x)
+            if x == "VIEW":
+                print("SpinCount", SpinCount)
+                print("Hopper:", Hopper)
+                print("InCred:", InCred)
+                print("OutCred:", OutCred)
+                print("Balance:", Balance)
+            elif x == "SET":
+                print ("WARNING!  THIS WILL ERASE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
+                x=input("")
+                if x == "YES":
+                    print ("How many credits are in the hopper?")
+                    x=input()
+                    Log("Admin Adjust Hopper " + str(Hopper) + " -> " + str(x) + " ")
+                    Hopper = int(x)
+            elif x== "ADJUST":
+                print("Balance:", Balance, "How many to add?")
+                x=input("")
+                Log("Admin Adjust Balance " + str(Balance) + " -> " + str(x) + " ")
+                Balance += int(x)
 
 ################# Application Starts Here #################
 Log("Program Launch")
