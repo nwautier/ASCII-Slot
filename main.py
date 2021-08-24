@@ -64,13 +64,14 @@ def InputLoop(x):
 def CredIn():
     # Assumes that permission is granted and passed value can be cast to INT.
     global InCred, Hopper, Balance, SpinCount
+    Log("Incred")
     if AdminCheck() == True:
         print("How many credits would you like to put in?")
         y=int(input())
-        Log("Incred ")
         InCred += int(y)
         Hopper += int(y)
         Balance += int(y)
+        Log("Incred")
     else:
         Log("Admin Pass Fail")
 
@@ -78,21 +79,15 @@ def CredOut():
     # Launches an Admin Access area to confirm hand pay
     x=0
     global Hopper, Balance, OutCred
-    Log("Outcred " )
+    Log("Outcred" )
     os.system('cls' if os.name == 'nt' else 'clear')
-    while x != "159753":
-        # User is stuck in the loop until Admin Password is entered.
-        print ("You have claimed", Balance, "Credits")
-        print ("Enter the Administrative password to confirm claim.")
-        x=input("")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        if x == "159753":
-            Log("Admin Pass Success")
-        else:
-            Log("Admin Pass Fail")
-    Hopper -= Balance
-    OutCred += Balance
-    Balance = 0
+    if AdminCheck() == True:
+        Hopper -= Balance
+        OutCred += Balance
+        Balance = 0
+        Log("Outcred")
+    else:
+        Log("Admin Pass Fail")
 
 def Spin():
     # Randomness and Payout is calculated here.  Simple System relies on Global Arrays to determine payout odds and odds of winning.
