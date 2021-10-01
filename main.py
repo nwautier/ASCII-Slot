@@ -119,7 +119,7 @@ def Spin():
 
 def LoadConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
-    f = open("config.txt", "r")
+    f = open("bin.cfg", "r")
     Hopper=int(f.readline())
     InCred=int(f.readline())
     OutCred=int(f.readline())
@@ -129,7 +129,7 @@ def LoadConfig():
 
 def WriteConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
-    f = open("config.txt", "w")
+    f = open("bin.cfg", "w")
     f.write( str(Hopper) + "\n"+ str(InCred) + "\n" + str(OutCred) + "\n" + str(Balance) + "\n" + str(SpinCount))
     f.close
 
