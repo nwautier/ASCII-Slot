@@ -134,7 +134,7 @@ def WriteConfig():
     f.close
 
 def Log(x):
-    f = open("log.txt", "a")
+    f = open("verb.log", "a")
     f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n")
     f.close
 
