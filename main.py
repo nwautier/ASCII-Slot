@@ -8,6 +8,7 @@ Hopper = int(500)
 InCred = int(0)
 OutCred = int(0)
 Balance = int(0)
+JackPot = int(250)
 SpinCount = int(0)
 ToPay = int(0)
 ReelDisplay = str("0 0 0")
@@ -109,8 +110,8 @@ def Spin():
     if ReelA[HitA] == ReelB[HitB]:
         if ReelA[HitA] == ReelC[HitC]:
             if ReelA[HitA] == "J":
-                ToPay=250
-                Log("Jackpot 250 Hit! S" + str(SpinCount))
+                ToPay = JackPot
+                Log("Jackpot "+ str(JackPot) + " Hit! S" + str(SpinCount))
             else:
                 ToPay = 5 * ReelA[HitA]
         else:
@@ -123,24 +124,25 @@ def Spin():
             Balance += ToPay
 
 def LoadConfig():
-    global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
+    global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC, JackPot
     f = open("bin.cfg", "r")
     Hopper=int(f.readline())
     InCred=int(f.readline())
     OutCred=int(f.readline())
     Balance=int(f.readline())
     SpinCount=int(f.readline())
+    JackPot=int(f.readline())
     f.close
 
 def WriteConfig():
-    global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
+    global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC, JackPot
     f = open("bin.cfg", "w")
-    f.write( str(Hopper) + "\n"+ str(InCred) + "\n" + str(OutCred) + "\n" + str(Balance) + "\n" + str(SpinCount))
+    f.write( str(Hopper) + "\n"+ str(InCred) + "\n" + str(OutCred) + "\n" + str(Balance) + "\n" + str(SpinCount) + "\n" + str(JackPot))
     f.close
 
 def Log(x):
     f = open("verb.log", "a")
-    f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n")
+    f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n" + " J" + str(JackPot))
     f.close
 
 def ScreenPrint():
@@ -169,6 +171,7 @@ def ServiceMenu():
                 print("InCred:", InCred)
                 print("OutCred:", OutCred)
                 print("Balance:", Balance)
+                print("JackPot:", JackPot)
             elif x == "SET":
                 print ("WARNING!  THIS WILL ERASE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
                 x=input("")
@@ -190,7 +193,7 @@ print("Load from config file?  N for Demo Mode")
 UseConfig=input()
 if UseConfig == "Y":
     LoadConfig()
-    print(Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC)
+    print(Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC, JackPot)
     Log("Config Loaded")
 else:
     Log("Demo Data Loaded")
