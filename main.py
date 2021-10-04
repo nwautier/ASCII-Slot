@@ -82,6 +82,8 @@ def CredOut():
     Log("Outcred" )
     os.system('cls' if os.name == 'nt' else 'clear')
     if AdminCheck() == True:
+        print("Ending session with ", Balance, " credits!")
+        x=input("Press Any Key")
         Hopper -= Balance
         OutCred += Balance
         Balance = 0
