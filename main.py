@@ -19,6 +19,24 @@ ReelA = ["J",0,1,2,3,4,5,6,7,8,9]
 ReelB = ["J",0,1,2,3,4,5,6,7,8,9]
 ReelC = ["J",0,1,2,3,4,5,6,7,8,9]
 
+def AdminCheck():
+    f = open("st.cfg", "r")
+    p = f.readline()
+    x = ""
+    while x != p:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        # User is stuck in the loop until Admin Password is entered.
+        print ("Enter the Administrative password to continue.")
+        x=input("")
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if int(x) == int(p):
+            Log("Admin Pass Success")
+            return(True)
+        else:
+            Log("Admin Pass Fail")
+            print("Try Again")
+    f.close
+
 def InputLoop(x):
     # This is the main loop that the program runs on.  Unless in the Service Menu, all keypresses are sent here for processing
     global InfoStrip, UseConfig
@@ -32,9 +50,7 @@ def InputLoop(x):
         CredOut()
     elif x == "In":
         # Allows credits to be inserted to the system.  Perhaps needs security triggers?
-        print("How many credits would you like to put in?")
-        x=int(input())
-        CredIn(x)
+        CredIn()
     elif x=="ServiceMenu":
         # Launches an Admin Access area with its own keypress capture loop
         ServiceMenu()
@@ -48,33 +64,35 @@ def InputLoop(x):
         # Catch-All term for any other input than those listed above.  Could be lost in future updates
         InfoStrip=("That feature is not yet supported!")
 
-def CredIn(x):
+def CredIn():
     # Assumes that permission is granted and passed value can be cast to INT.
     global InCred, Hopper, Balance, SpinCount
-    Log("Incred ")
-    InCred += int(x)
-    Hopper += int(x)
-    Balance += int(x)
+    Log("Incred")
+    if AdminCheck() == True:
+        print("How many credits would you like to put in?")
+        y=int(input())
+        InCred += int(y)
+        Hopper += int(y)
+        Balance += int(y)
+        Log("Incred")
+    else:
+        Log("Admin Pass Fail")
 
 def CredOut():
     # Launches an Admin Access area to confirm hand pay
     x=0
     global Hopper, Balance, OutCred
-    Log("Outcred " )
+    Log("Outcred" )
     os.system('cls' if os.name == 'nt' else 'clear')
-    while x != "159753":
-        # User is stuck in the loop until Admin Password is entered.
-        print ("You have claimed", Balance, "Credits")
-        print ("Enter the Administrative password to confirm claim.")
-        x=input("")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        if x == "159753":
-            Log("Admin Pass Success")
-        else:
-            Log("Admin Pass Fail")
-    Hopper -= Balance
-    OutCred += Balance
-    Balance = 0
+    if AdminCheck() == True:
+        print("Ending session with ", Balance, " credits!")
+        x=input("Press Any Key")
+        Hopper -= Balance
+        OutCred += Balance
+        Balance = 0
+        Log("Outcred")
+    else:
+        Log("Admin Pass Fail")
 
 def Spin():
     # Randomness and Payout is calculated here.  Simple System relies on Global Arrays to determine payout odds and odds of winning.
@@ -106,7 +124,7 @@ def Spin():
 
 def LoadConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
-    f = open("config.txt", "r")
+    f = open("bin.cfg", "r")
     Hopper=int(f.readline())
     InCred=int(f.readline())
     OutCred=int(f.readline())
@@ -116,12 +134,12 @@ def LoadConfig():
 
 def WriteConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC
-    f = open("config.txt", "w")
+    f = open("bin.cfg", "w")
     f.write( str(Hopper) + "\n"+ str(InCred) + "\n" + str(OutCred) + "\n" + str(Balance) + "\n" + str(SpinCount))
     f.close
 
 def Log(x):
-    f = open("log.txt", "a")
+    f = open("verb.log", "a")
     f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n")
     f.close
 
@@ -140,37 +158,30 @@ def ServiceMenu():
     Log("Service Menu Requested")
     global SpinCount, Hopper, InCred, OutCred, Balance
     x=0
-    while x != "159753":
-        print ("The Administrative password is required to continue.")
-        x=input("")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        if x == "159753":
-            Log("Admin Pass Success")
-        else:
-            Log("Admin Pass Fail")
-    while x != "":
-        # Not selecting any input, terminates Administrative mode.  A Typo brings you back to the same prompt
-        print ("Would you like to VIEW stats, SET hopper, or ADJUST balance?  Hit Return to exit.")
-        x=input("")
-        if x == "VIEW":
-            print("SpinCount", SpinCount)
-            print("Hopper:", Hopper)
-            print("InCred:", InCred)
-            print("OutCred:", OutCred)
-            print("Balance:", Balance)
-        elif x == "SET":
-            print ("WARNING!  THIS WILL ERASE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
+    if AdminCheck() == True:
+        while x != "":
+            # Not selecting any input, terminates Administrative mode.  A Typo brings you back to the same prompt
+            print ("Would you like to VIEW stats, SET hopper, or ADJUST balance?  Hit Return to exit.")
             x=input("")
-            if x == "YES":
-                print ("How many credits are in the hopper?")
-                x=input()
-                Log("Admin Adjust Hopper " + str(Hopper) + " -> " + str(x) + " ")
-                Hopper = int(x)
-        elif x== "ADJUST":
-            print("Balance:", Balance, "How many to add?")
-            x=input("")
-            Log("Admin Adjust Balance " + str(Balance) + " -> " + str(x) + " ")
-            Balance += int(x)
+            if x == "VIEW":
+                print("SpinCount", SpinCount)
+                print("Hopper:", Hopper)
+                print("InCred:", InCred)
+                print("OutCred:", OutCred)
+                print("Balance:", Balance)
+            elif x == "SET":
+                print ("WARNING!  THIS WILL ERASE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
+                x=input("")
+                if x == "YES":
+                    print ("How many credits are in the hopper?")
+                    x=input()
+                    Log("Admin Adjust Hopper " + str(Hopper) + " -> " + str(x) + " ")
+                    Hopper = int(x)
+            elif x== "ADJUST":
+                print("Balance:", Balance, "How many to add?")
+                x=input("")
+                Log("Admin Adjust Balance " + str(Balance) + " -> " + str(x) + " ")
+                Balance += int(x)
 
 ################# Application Starts Here #################
 Log("Program Launch")
