@@ -22,15 +22,15 @@ ReelC = ["J",0,1,2,3,4,5,6,7,8,9]
 
 def AdminCheck():
     f = open("st.cfg", "r")
-    p = f.readline()
-    x = ""
+    p = str(f.readline().strip())
+    x = str("")
     while x != p:
         os.system('cls' if os.name == 'nt' else 'clear')
         # User is stuck in the loop until Admin Password is entered.
         print ("Enter the Administrative password to continue.")
-        x=input("")
+        x=str(input(""))
         os.system('cls' if os.name == 'nt' else 'clear')
-        if int(x) == int(p):
+        if x == p:
             Log("Admin Pass Success")
             return(True)
         else:
@@ -141,7 +141,7 @@ def WriteConfig():
     f.close
 
 def Log(x):
-    f = open("verb.log", "a")
+    f = open("verb.lg", "a")
     f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n" + " J" + str(JackPot))
     f.close
 
