@@ -101,7 +101,7 @@ def Spin():
     SpinCount += 1
     Balance -= 1
     x=1
-    while x != 100:
+    while x != 10:
         HitA = random.randrange(0,len(ReelA))
         HitB = random.randrange(0,len(ReelB))
         HitC = random.randrange(0,len(ReelC))
@@ -151,7 +151,7 @@ def WriteConfig():
 
 def Log(x):
     f = open("verb.lg", "a")
-    f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n" + " J" + str(JackPot))
+    f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + " J" + str(JackPot) + "\n")
     f.close
 
 def ScreenPrint():
