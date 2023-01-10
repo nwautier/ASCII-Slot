@@ -100,12 +100,19 @@ def Spin():
     global Balance, SpinCount, ReelDisplay, InfoStrip
     SpinCount += 1
     Balance -= 1
-    HitA = random.randrange(0,len(ReelA))
-    HitB = random.randrange(0,len(ReelB))
-    HitC = random.randrange(0,len(ReelC))
+    x=1
+    while x != 100:
+        HitA = random.randrange(0,len(ReelA))
+        HitB = random.randrange(0,len(ReelB))
+        HitC = random.randrange(0,len(ReelC))
+        ReelDisplay = (str(ReelA[HitA]) + " " + str(ReelB[HitB]) + " " + str(ReelC[HitC]))
+        x += 1
+        ScreenPrint()
 
-    ReelDisplay = (str(ReelA[HitA]) + " " + str(ReelB[HitB]) + " " + str(ReelC[HitC]))
+    WinCalc(HitA, HitB, HitC)
 
+def WinCalc(HitA, HitB, HitC):
+    global Balance, SpinCount, ReelDisplay, InfoStrip
     ToPay = 0 # Local Variable
     if ReelA[HitA] == ReelB[HitB]:
         if ReelA[HitA] == ReelC[HitC]:
