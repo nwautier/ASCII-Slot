@@ -114,21 +114,23 @@ def Spin():
 def WinCalc(HitA, HitB, HitC):
     global Balance, SpinCount, ReelDisplay, InfoStrip
     ToPay = 0 # Local Variable
-    if ReelA[HitA] == ReelB[HitB]:
-        if ReelA[HitA] == ReelC[HitC]:
-            if ReelA[HitA] == "J":
+    if ReelA[HitA] == ReelB[HitB]: #First Two Match
+        if ReelA[HitA] == ReelC[HitC]: #All Three Match
+            if ReelA[HitA] == "J": #All Jackpot
                 ToPay = JackPot
                 Log("Jackpot "+ str(JackPot) + " Hit! S" + str(SpinCount))
-            else:
+            else: #All Three Match
                 ToPay = 5 * ReelA[HitA]
-        else:
-            if ReelA[HitA] == "J":
+        else: #First Two Match
+            if ReelA[HitA] == "J": #First Two Jackpot
                 ToPay=0
-            else:
+            else: #First Two Match, NOT Jackpot
                 ToPay = 1 * ReelA[HitA]
         if ToPay > 0:
             InfoStrip = ("You Won " + str(ToPay) + " Credits")
             Balance += ToPay
+        else:
+            InfoStrip = ("Please Try Again") #Should never see this
 
 def LoadConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC, JackPot
