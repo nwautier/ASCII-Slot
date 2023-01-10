@@ -181,6 +181,7 @@ def ServiceMenu():
                 print("OutCred:", OutCred)
                 print("Balance:", Balance)
                 print("JackPot:", JackPot)
+                print("Profit:", int(int(InCred)-int(OutCred)-int(Balance)))
             elif x == "SET":
                 print ("WARNING!  THIS WILL ERASE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
                 x=input("")
