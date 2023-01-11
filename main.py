@@ -182,8 +182,9 @@ def ServiceMenu():
                 print("Balance:", Balance)
                 print("JackPot:", JackPot)
                 print("Profit:", int(int(InCred)-int(OutCred)-int(Balance)))
+                print("Profit Per Spin:", int(int(InCred)-int(OutCred)-int(Balance))/int(SpinCount))
             elif x == "SET":
-                print ("WARNING!  THIS WILL ERASE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
+                print ("WARNING!  THIS WILL CHANGE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
                 x=input("")
                 if x == "YES":
                     print ("How many credits are in the hopper?")
