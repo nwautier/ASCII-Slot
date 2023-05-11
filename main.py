@@ -36,12 +36,12 @@ def AdminCheck():
         else:
             Log("Admin Pass Fail")
             print("Try Again")
-    f.close
+    f.close()
 
 
 def InputLoop(x):
     # This is the main loop that the program runs on.
-    # Unless in the Service Menu, all keypresses are sent here for processing
+    # Unless in the Service Menu, all key-presses are sent here for processing
     global InfoStrip, UseConfig
     if x == "":
         if Balance > 0:
@@ -49,7 +49,7 @@ def InputLoop(x):
         else:
             InfoStrip = "You need to put some credits in before you can spin...  See Your Host!"
     elif x == "DONE":
-        # Launches an Admin Access page so they can confirm proper hand-pay
+        # Launches an Admin Access page so proper hand-pay can be confirmed
         CredOut()
     elif x == "In":
         # Allows credits to be inserted to the system.  Perhaps needs security triggers?
@@ -78,7 +78,7 @@ def CredIn():
         InCred += int(y)
         Hopper += int(y)
         Balance += int(y)
-        Log("Incred")
+        Log("InCred")
     else:
         Log("Admin Pass Fail")
 
@@ -138,20 +138,20 @@ def LoadConfig():
     Balance = int(f.readline())
     SpinCount = int(f.readline())
     JackPot = int(f.readline())
-    f.close
+    f.close()
 
 
 def WriteConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC, JackPot
     f = open("bin.cfg", "w")
     f.write(str(Hopper) + "\n" + str(InCred) + "\n" + str(OutCred) + "\n" + str(Balance) + "\n" + str(SpinCount) + "\n" + str(JackPot))
-    f.close
+    f.close()
 
 
 def Log(x):
     f = open("verb.lg", "a")
     f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n" + " J" + str(JackPot))
-    f.close
+    f.close()
 
 
 def ScreenPrint():
