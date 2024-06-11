@@ -129,8 +129,7 @@ def WinCalc(HitA, HitB, HitC):
         if ToPay > 0:
             InfoStrip = ("You Won " + str(ToPay) + " Credits")
             Balance += ToPay
-        else:
-            InfoStrip = ("Please Try Again") #Should never see this
+
 
 def LoadConfig():
     global Hopper, InCred, OutCred, Balance, SpinCount, ReelA, ReelB, ReelC, JackPot
