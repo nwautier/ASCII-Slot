@@ -105,24 +105,34 @@ def Spin():
     global Balance, SpinCount, ReelDisplay, InfoStrip
     SpinCount += 1
     Balance -= 1
-    HitA = random.randrange(0, len(ReelA))
-    HitB = random.randrange(0, len(ReelB))
-    HitC = random.randrange(0, len(ReelC))
 
-    ReelDisplay = (str(ReelA[HitA]) + " " + str(ReelB[HitB]) + " " + str(ReelC[HitC]))
+    x=1
+    while x != 10:
+        HitA = random.randrange(0,len(ReelA))
+        HitB = random.randrange(0,len(ReelB))
+        HitC = random.randrange(0,len(ReelC))
+        ReelDisplay = (str(ReelA[HitA]) + " " + str(ReelB[HitB]) + " " + str(ReelC[HitC]))
+        x += 1
+        ScreenPrint()
 
-    ToPay = 0  # Local Variable
-    if ReelA[HitA] == ReelB[HitB]:
-        if ReelA[HitA] == ReelC[HitC]:
-            if ReelA[HitA] == "J":
+
+    WinCalc(HitA, HitB, HitC)
+
+def WinCalc(HitA, HitB, HitC):
+    global Balance, SpinCount, ReelDisplay, InfoStrip
+    ToPay = 0 # Local Variable
+    if ReelA[HitA] == ReelB[HitB]: #First Two Match
+        if ReelA[HitA] == ReelC[HitC]: #All Three Match
+            if ReelA[HitA] == "J": #All Jackpot
                 ToPay = JackPot
-                Log("Jackpot " + str(JackPot) + " Hit! S" + str(SpinCount))
-            else:
+                Log("Jackpot "+ str(JackPot) + " Hit! S" + str(SpinCount))
+            else: #All Three Match
                 ToPay = 5 * ReelA[HitA]
-        else:
-            if ReelA[HitA] == "J":
-                ToPay = 0
-            else:
+        else: #First Two Match
+            if ReelA[HitA] == "J": #First Two Jackpot
+                ToPay=0
+            else: #First Two Match, NOT Jackpot
+
                 ToPay = 1 * ReelA[HitA]
         if ToPay > 0:
             InfoStrip = ("You Won " + str(ToPay) + " Credits")
@@ -150,8 +160,8 @@ def WriteConfig():
 
 def Log(x):
     f = open("verb.lg", "a")
-    f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + "\n" + " J" + str(JackPot))
-    f.close()
+    f.write(str(datetime.datetime.now()) + " " + x + "- H" + str(Hopper) + " I" + str(InCred) + " O" + str(OutCred) + " B" + str(Balance) + " S" + str(SpinCount) + " J" + str(JackPot) + "\n")
+    f.close
 
 
 def ScreenPrint():
@@ -182,9 +192,13 @@ def ServiceMenu():
                 print("OutCred:", OutCred)
                 print("Balance:", Balance)
                 print("JackPot:", JackPot)
+                print("Profit:", int(int(InCred)-int(OutCred)-int(Balance)))
+                print("Profit Per Spin:", int(int(InCred)-int(OutCred)-int(Balance))/int(SpinCount))
             elif x == "SET":
-                print("WARNING!  THIS WILL ERASE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEED?")
-                x = input("")
+
+                print ("WARNING!  THIS WILL CHANGE THE HOPPER VALUE.  ARE YOU SURE YOU WOULD LIKE TO PROCEDE?")
+                x=input("")
+
                 if x == "YES":
                     print("How many credits are in the hopper?")
                     x = input()
